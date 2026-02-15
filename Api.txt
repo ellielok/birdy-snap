@@ -1,0 +1,84 @@
+Api:
+
+1.QueryFile.vue
+1.1 文件/标签搜索及分页
+const { data } = await axios.get(`/api/search?${params}`);
+方法：GET
+路径：/api/search
+参数：Query String
+tag：标签字符串（多个用逗号分隔）
+page：页码（从 1 开始）
+page_size：每页数量（如20）
+用途：根据标签或文件名关键字分页检索文件（支持多标签或文件名模糊匹配）
+响应：文件信息数组，每个文件对象含 file_name、tags、thumbnail_url、uploaded_at、full_url 等
+1.2 获取原图预签名URL
+const { data } = await axios.get(`/api/get_fullsize?thumbnail_url=${file.thumbnail_url}`);
+方法：GET
+路径：/api/get_fullsize
+参数：Query String
+thumbnail_url：要获取大图的缩略图URL
+用途：通过缩略图URL，获取原图的访问/下载链接（通常返回预签名URL）
+响应：形如 { url: "https://..." }
+
+2. UploadFile.vue
+2.1 获取S3预签名URL
+const { data } = await axios.get(`/api/s3url?filename=${filename}`);
+data 结构: { presigned_url, request_id, upload_key }
+方法：GET
+路径：/api/s3url
+参数：Query String
+filename = 文件名（需 encodeURIComponent）
+响应：
+{
+  "presigned_url": "https://s3....",
+  "request_id": "...",
+  "upload_key": "..."
+}
+2.2 上传文件到S3
+await axios.put(data.presigned_url, selectedFile.value, {
+    headers: { "Content-Type": selectedFile.value.type },
+});
+方法：PUT
+路径：S3 预签名URL（由上一步后端生成）
+参数：请求体为文件内容，Header Content-Type = 文件类型
+用途：前端把文件数据直接推到对象存储，服务端只负责签名授权
+2.3 上报文件元数据
+await axios.post('/api/upload-metadata', {
+    request_id: data.request_id,
+    upload_key: data.upload_key,
+    file_name: selectedFile.value.name,
+    tags: tags.value.split(',').map(tag => tag.trim()).filter(Boolean)
+});
+方法：POST
+路径：/api/upload-metadata
+参数：JSON
+request_id：上一步返回
+upload_key：上一步返回
+file_name：原始文件名
+tags：标签数组（由用户输入，逗号分割转数组）
+用途：登记文件元数据，关联用户、标签等
+
+3. SubscribeTags.vue
+3.1 查询已订阅标签
+const { data } = await axios.get("/api/subscribe-tag");
+方法：GET
+路径：/api/subscribe-tag
+参数：无
+用途：获取当前用户已订阅的标签列表（数组）
+响应：形如 ["tag1", "tag2", ...]
+3.2 订阅新标签
+await axios.post("/api/subscribe-tag", { tags: tagsToAdd.value });
+方法：POST
+路径：/api/subscribe-tag
+参数：JSON
+tags: 标签数组（如 ["bird1", "bird2"]）
+用途：批量订阅新的标签
+响应：无固定格式，通常表示成功/失败
+3.3 取消订阅某标签
+await axios.post("/api/unsubscribe-tag", { tags: [tag] });
+方法：POST
+路径：/api/unsubscribe-tag
+参数：JSON
+tags: 待退订标签数组（单个或多个，如 ["bird1"]）
+用途：退订某个已订阅标签
+响应：无固定格式，通常表示成功/失败
