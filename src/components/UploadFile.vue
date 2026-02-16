@@ -171,7 +171,7 @@ async function uploadFile() {
             },
             {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
+                    // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
                     'Content-Type': 'application/json',
                 },
             }
