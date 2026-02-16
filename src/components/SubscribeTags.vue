@@ -68,7 +68,7 @@ const successMsg = ref("");
 const errorMsg = ref("");
 const router = useRouter();
 
-const SNS_API = "https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/subscribe"
+const SNS_API = "https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/subscribe"
 
 // Assign color for a tag (hash to color, keep stable for the same tag)
 function getChipStyle(tag) {

@@ -164,7 +164,7 @@ async function uploadFile() {
         // request presigned url
         const filename = encodeURIComponent(selectedFile.value.name);
         const presignRes= await axios.post(
-            `https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/GeneratePresignURL` ,
+            `https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/GeneratePresignURL` ,
             {
                 fileName: selectedFile.value.name,
                 fileType: selectedFile.value.type,

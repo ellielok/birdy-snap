@@ -290,7 +290,7 @@ async function saveTags() {
     try {
         const tagsToSave = [...originalTags.value, ...editingTags.value].map(tag => `${tag},1`);
         await axios.post(
-            "https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/UpdateTags",
+            "https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/UpdateTags",
             {
                 url: [editingFile.value.url],
                 operation: 1,
@@ -329,7 +329,7 @@ async function onSearchImage(event) {
         const formData = new FormData();
         formData.append("file", file);
         const { data } = await axios.post(
-            "https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/SearchByUploadedFile",
+            "https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/SearchByUploadedFile",
             formData,
             {
                 headers: {
@@ -373,7 +373,7 @@ async function fetchFiles(isFirstPage = false) {
         const tagsArr = keywordStr.split(',').map(tag => tag.trim()).filter(Boolean);
         try {
             const { data } = await axios.post(
-                "https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/SearchByTagsSimple",
+                "https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/SearchByTagsSimple",
                 {
                     tags: tagsArr
                 },
@@ -407,7 +407,7 @@ async function fetchFiles(isFirstPage = false) {
         });
         try {
             const { data } = await axios.post(
-                "https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/SearchByTagsWithCount",
+                "https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/SearchByTagsWithCount",
                 { tags: tagCounts },
                 {
                     headers: {
@@ -489,7 +489,7 @@ async function deleteFiles(keys) {
     try {
         loading.value = true;
         error.value = null;
-        const res = await axios.post("https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/DeleteFiles", 
+        const res = await axios.post("https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/DeleteFiles", 
             {urls: keys}, 
             {
                 headers: {
@@ -520,7 +520,7 @@ onMounted(() => {
 async function showFullImage(file) {
     try {
         const { data } = await axios.post(
-            `https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/get_fullsize`,
+            `https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/get_fullsize`,
             { thumbnail_url: file.url },
             {
                 headers: {
