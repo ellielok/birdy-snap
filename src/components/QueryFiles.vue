@@ -42,7 +42,8 @@
                 </div>
             </div>
 
-            <!-- Thumbnail URL Search Section -->
+            <!-- Thumbnail URL Search Section (removed) -->
+            <!--
             <div class="search-section">
                 <div class="search-header">
                     <i class="fas fa-link"></i>
@@ -56,8 +57,8 @@
                         :disabled="loadingFullImg"
                     />
                     <div class="search-buttons">
-                        <button 
-                            @click="showFullImageByUrl" 
+                        <button
+                            @click="showFullImageByUrl"
                             class="btn-primary"
                             :disabled="!thumbnailUrl || loadingFullImg"
                         >
@@ -67,6 +68,7 @@
                 </div>
                 <div v-if="findFullImgError" class="error-msg">{{ findFullImgError }}</div>
             </div>
+            -->
         </div>
 
         <div v-if="mySelectedFiles.length > 0" class="bulk-actions-bar">
@@ -246,9 +248,9 @@ const fullImageUrl = ref("");
 const user = ref(null);
 const mySelectedMap = ref({});
 
-const thumbnailUrl = ref("");
-const loadingFullImg = ref(false);
-const findFullImgError = ref("");
+// const thumbnailUrl = ref("");
+// const loadingFullImg = ref(false);
+// const findFullImgError = ref("");
 
 const imageInput = ref(null);
 
@@ -535,22 +537,22 @@ async function showFullImage(file) {
     }
 }
 
-async function showFullImageByUrl() {
-    if (!thumbnailUrl.value) {
-        findFullImgError.value = "Please enter a thumbnail URL";
-        return;
-    }
-
-    loadingFullImg.value = true;
-    findFullImgError.value = "";
-    try {
-        await showFullImage({url: thumbnailUrl.value});
-    } catch (e) {
-        findFullImgError.value = "Failed to get full image: " + (e?.response?.data?.message || e.message || "Unknown error");
-    } finally {
-        loadingFullImg.value = false;
-    }
-}
+// async function showFullImageByUrl() {
+//     if (!thumbnailUrl.value) {
+//         findFullImgError.value = "Please enter a thumbnail URL";
+//         return;
+//     }
+//
+//     loadingFullImg.value = true;
+//     findFullImgError.value = "";
+//     try {
+//         await showFullImage({url: thumbnailUrl.value});
+//     } catch (e) {
+//         findFullImgError.value = "Failed to get full image: " + (e?.response?.data?.message || e.message || "Unknown error");
+//     } finally {
+//         loadingFullImg.value = false;
+//     }
+// }
 
 
 function parseTagCounts(keywordStr){
