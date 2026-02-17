@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper" class="fade-in">
-    <Intro />
+    <!-- <Intro /> -->
     <HeaderBar id="main-content" />
     <router-view />
     <FooterBar />
