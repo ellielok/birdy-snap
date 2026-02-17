@@ -521,16 +521,18 @@ onMounted(() => {
 
 async function showFullImage(file) {
     try {
+        // Strip presigned URL query params to get the raw S3 URL for DynamoDB matching
+        const rawUrl = file.url.split('?')[0];
         const { data } = await axios.post(
             `https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/get_fullsize`,
-            { thumbnail_url: file.url },
+            { thumbnail_url: rawUrl },
             {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                    // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                 }
             }
         );
-        fullImageUrl.value = data.url;
+        fullImageUrl.value = data.fileUrl;
         fullImageDialogVisible.value = true;
     } catch (e) {
         console.error("Failed to get presigned url:", e);
