@@ -501,9 +501,9 @@ async function deleteFiles(keys) {
             }
         );
         console.log("DEBUG: deleteFiles got:", res.data);
-        files.value = files.value.filter(file => !keys.includes(file.url));
         keys.forEach(url => delete mySelectedMap.value[url]);
         alert(res.data.message || "Delete success");
+        await resetSearch();
     } catch (e) {
         alert("Delete failed: " + (e?.response?.data?.message || e.message || "Unknown error"));
     } finally {
