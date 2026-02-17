@@ -482,7 +482,7 @@ function confirmDelete(file) {
 function confirmBulkDelete() {
     if (mySelectedFiles.value.length === 0) return;
     if (window.confirm(`Delete ${mySelectedFiles.value.length} files? This cannot be undone.`)) {
-        const keys = mySelectedFiles.value.map(file => file.url);
+        const keys = mySelectedFiles.value.map(file => file.url.split('?')[0]);
         deleteFiles(keys);
     }
 }
