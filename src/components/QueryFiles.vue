@@ -103,17 +103,17 @@
                     >
                         <!-- Media Container -->
                         <div class="media-container">
-                            <img 
-                                v-if="file.url.match(/\.(jpg|jpeg|png|gif)$/i)" 
-                                :src="file.url" 
+                            <img
+                                v-if="file.url.match(/\.(jpg|jpeg|png|gif)(\?.*)?$/i)"
+                                :src="file.url"
                                 @click="showFullImage(file)"
                                 class="thumbnail"
                                 alt="thumbnail"
                             />
-                            <video 
-                                v-else-if="file.url.match(/\.(mp4|mov|avi|webm)$/i)" 
-                                :src="file.url" 
-                                controls 
+                            <video
+                                v-else-if="file.url.match(/\.(mp4|mov|avi|webm)(\?.*)?$/i)"
+                                :src="file.url"
+                                controls
                             />
                         </div>
 
@@ -298,7 +298,7 @@ async function saveTags() {
             },
             {
                 headers: {
-                    // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
                     'Content-Type': 'application/json'
                 }
             }
@@ -334,7 +334,7 @@ async function onSearchImage(event) {
             {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                 }
             }
         );
@@ -379,7 +379,7 @@ async function fetchFiles(isFirstPage = false) {
                 },
                 {
                     headers: {
-                        // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                     }
                 }
             );
@@ -411,7 +411,7 @@ async function fetchFiles(isFirstPage = false) {
                 { tags: tagCounts },
                 {
                     headers: {
-                        // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                     }
                 }
             );
@@ -493,7 +493,7 @@ async function deleteFiles(keys) {
             {urls: keys}, 
             {
                 headers: {
-                    // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
                     'Content-Type': 'application/json'
                 }
             }
@@ -524,7 +524,7 @@ async function showFullImage(file) {
             { thumbnail_url: file.url },
             {
                 headers: {
-                    // 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                 }
             }
         );
