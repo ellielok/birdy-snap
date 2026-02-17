@@ -5,6 +5,12 @@
             <div class="title" @click="goToHomepage">Monash Birdy Buddies</div>
         </div>
         <div class="header-right">
+                <button class="auth-btn" @click="goToTextSearch">
+                    Text Search
+                </button>
+                <button class="auth-btn" @click="goToImageSearch">
+                    Reverse Search
+                </button>
                 <button class="auth-btn" @click="goToAbout">
                     About
                 </button>
@@ -62,6 +68,14 @@ function goToHomepage() {
 
 function goToAbout() {
     router.push('/about');
+}
+
+function goToTextSearch() {
+    router.push('/');
+}
+
+function goToImageSearch() {
+    router.push('/image-search');
 }
 
 function updateUserFromToken() {
