@@ -4,7 +4,7 @@ const CLIENT_ID = "2hs29ad20nu2cv5da3fp47br7l";
 const CLIENT_SECRET = "1clei15onlsp555c0k1n85q42bofio53cjr8823spmhkbusf3fos";
 const REDIRECT_URI = window.location.origin;
 const COGNITO_DOMAIN =
-  "ap-southeast-23unis9ngx.auth.ap-southeast-2.amazoncognito.com";
+  "ap-southeast-29veisch4m.auth.ap-southeast-2.amazoncognito.com";
 
 function getBasicAuthHeader() {
   const base64 = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
