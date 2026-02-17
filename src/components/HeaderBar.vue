@@ -5,11 +5,14 @@
             <div class="title" @click="goToHomepage">Monash Birdy Buddies</div>
         </div>
         <div class="header-right">
+                <button class="auth-btn" @click="goToAbout">
+                    About
+                </button>
                 <button class="auth-btn" @click="cognitoLogin" v-if="!user">
                     Login
                 </button>
                 <template v-else>
-                    <p class="current-user"><span class="secondary-text">Logged in as</span> <span class="username">{{ user["cognito:username"] }}</span></p>
+                    <!-- <p class="current-user"><span class="secondary-text">Logged in as</span> <span class="username">{{ user["cognito:username"] }}</span></p> -->
                     <button class="auth-btn" @click="profile">
                         Subscribe
                     </button>
@@ -55,6 +58,10 @@ async function upload() {
 
 function goToHomepage() {
     router.push('/');
+}
+
+function goToAbout() {
+    router.push('/about');
 }
 
 function updateUserFromToken() {
