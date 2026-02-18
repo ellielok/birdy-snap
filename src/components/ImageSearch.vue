@@ -1,14 +1,14 @@
 <template>
-    <div class="query-files-page">
-        <div class="hero-section">
-            <h1 class="hero-title">Reverse Image Search</h1>
-            <p class="hero-subtitle">Upload a photo to find visually similar bird images in the database.</p>
+    <div class="min-h-screen bg-[url('/images/Background.png')] bg-center bg-cover bg-no-repeat bg-fixed py-12">
+        <div class="text-center max-w-[700px] mx-auto mb-8 px-5">
+            <h1 class="text-[2.8em] font-black text-[#1a1a1a] m-0 mb-3 -tracking-[0.5px]">Reverse Image Search</h1>
+            <p class="text-[1.15em] text-[#555] m-0 leading-relaxed">Upload a photo to find visually similar bird images in the database.</p>
         </div>
 
-        <div class="upload-container">
+        <div class="max-w-[700px] mx-auto mb-10 px-5">
             <div
-                class="upload-box"
-                :class="{ 'drag-over': isDragOver }"
+                class="bg-white/95 border-[2.5px] border-dashed border-[#a8d4e6] rounded-2xl py-12 px-8 flex flex-col items-center justify-center gap-4 transition-all duration-300 cursor-pointer hover:border-[#1976d2] hover:bg-white hover:shadow-[0_4px_20px_rgba(25,118,210,0.1)]"
+                :class="{ '!border-[#1976d2] !bg-[rgba(227,242,253,0.9)] !shadow-[0_4px_24px_rgba(25,118,210,0.2)]': isDragOver }"
                 @dragover.prevent="isDragOver = true"
                 @dragleave.prevent="isDragOver = false"
                 @drop.prevent="onDrop"
@@ -20,9 +20,9 @@
                     style="display: none;"
                     ref="imageInput"
                 />
-                <div class="upload-prompt">
-                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                    <span>Drag, paste, or <a class="upload-link" @click="triggerImageInput">upload an image</a> here</span>
+                <div class="flex items-center gap-2.5 text-[1.1em] text-[#444]">
+                    <i class="fas fa-cloud-upload-alt text-[1.5em] text-[#1976d2]"></i>
+                    <span>Drag, paste, or <a class="text-[#1976d2] font-semibold cursor-pointer no-underline hover:underline" @click="triggerImageInput">upload an image</a> here</span>
                 </div>
             </div>
         </div>
@@ -125,89 +125,3 @@ onUnmounted(() => {
     document.removeEventListener('paste', onPaste);
 });
 </script>
-
-<style scoped>
-.query-files-page {
-    min-height: 100vh;
-    background: url('/images/Background.png') center center/cover no-repeat fixed;
-    padding: 3rem 0;
-}
-
-.hero-section {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
-    padding: 0 20px;
-}
-
-.hero-title {
-    font-size: 2.8em;
-    font-weight: 900;
-    color: #1a1a1a;
-    margin: 0 0 12px 0;
-    letter-spacing: -0.5px;
-}
-
-.hero-subtitle {
-    font-size: 1.15em;
-    color: #555;
-    margin: 0;
-    line-height: 1.6;
-}
-
-.upload-container {
-    max-width: 700px;
-    margin: 0 auto 2.5rem auto;
-    padding: 0 20px;
-}
-
-.upload-box {
-    background: rgba(255, 255, 255, 0.95);
-    border: 2.5px dashed #a8d4e6;
-    border-radius: 16px;
-    padding: 48px 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.upload-box:hover {
-    border-color: #1976d2;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 4px 20px rgba(25, 118, 210, 0.1);
-}
-
-.upload-box.drag-over {
-    border-color: #1976d2;
-    background: rgba(227, 242, 253, 0.9);
-    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.2);
-}
-
-.upload-prompt {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.1em;
-    color: #444;
-}
-
-.upload-icon {
-    font-size: 1.5em;
-    color: #1976d2;
-}
-
-.upload-link {
-    color: #1976d2;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.upload-link:hover {
-    text-decoration: underline;
-}
-</style>

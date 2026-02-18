@@ -1,21 +1,21 @@
 <template>
-    <div class="query-files-page">
-        <div class="search-container">
-            <div class="search-section">
-                <div class="search-header">
-                    <i class="fas fa-search"></i>
-                    <h3>Text Search</h3>
+    <div class="min-h-screen bg-[url('/images/Background.png')] bg-center bg-cover bg-no-repeat bg-fixed py-12">
+        <div class="max-w-[1000px] mx-auto mb-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5 px-5">
+            <div class="bg-white/95 rounded-xl p-5 shadow-[0_4px_20px_rgba(30,80,200,0.1)] border border-[rgba(25,118,210,0.1)] transition-all duration-300 hover:shadow-[0_6px_25px_rgba(30,80,200,0.15)] hover:-translate-y-0.5">
+                <div class="flex items-center gap-2.5 mb-[15px] pb-2.5 border-b-2 border-[#f0f4ff]">
+                    <i class="fas fa-search text-[#1976d2] text-[1.2em]"></i>
+                    <h3 class="m-0 text-[#333] text-[1.1em] font-semibold">Text Search</h3>
                 </div>
-                <div class="search-content">
+                <div class="flex flex-col gap-3">
                     <input
                         v-model="keyword"
                         @keyup.enter="fetchFiles"
                         placeholder="(e.g. crow or crow:2,pigeon:1)"
-                        class="search-input"
+                        class="w-full py-3 px-4 rounded-lg border border-[#ddd] text-base transition-all duration-200 box-border focus:outline-none focus:border-[#1976d2] focus:shadow-[0_0_0_3px_rgba(25,118,210,0.1)] disabled:bg-[#f5f5f5] disabled:text-[#999]"
                     />
-                    <div class="search-buttons">
-                        <button @click="fetchFiles" class="btn-primary">Search</button>
-                        <button @click="resetSearch(true)" v-if="keyword" class="btn-secondary">Reset</button>
+                    <div class="flex gap-2 flex-wrap">
+                        <button @click="fetchFiles" class="py-2.5 px-5 bg-gradient-to-br from-[#1976d2] to-[#1565c0] text-white border-none rounded-lg cursor-pointer text-[0.95em] font-medium transition-all duration-200 flex-1 min-w-[80px] hover:bg-gradient-to-br hover:from-[#1565c0] hover:to-[#0d47a1] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(25,118,210,0.3)]">Search</button>
+                        <button @click="resetSearch(true)" v-if="keyword" class="py-2.5 px-5 bg-gradient-to-br from-[#f5f5f5] to-[#e0e0e0] text-[#666] border-none rounded-lg cursor-pointer text-[0.95em] font-medium transition-all duration-200 flex-1 min-w-[80px] hover:bg-gradient-to-br hover:from-[#e0e0e0] hover:to-[#d0d0d0] hover:-translate-y-px">Reset</button>
                     </div>
                 </div>
             </div>
@@ -142,134 +142,3 @@ onMounted(() => {
     resetSearch();
 });
 </script>
-
-<style scoped>
-.query-files-page {
-    min-height: 100vh;
-    background: url('/images/Background.png') center center/cover no-repeat fixed;
-    padding: 3rem 0;
-}
-
-.search-container {
-    max-width: 1000px;
-    margin: 0 auto 2rem auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 0 20px;
-}
-
-.search-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(30, 80, 200, 0.1);
-    border: 1px solid rgba(25, 118, 210, 0.1);
-    transition: all 0.3s ease;
-}
-
-.search-section:hover {
-    box-shadow: 0 6px 25px rgba(30, 80, 200, 0.15);
-    transform: translateY(-2px);
-}
-
-.search-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f0f4ff;
-}
-
-.search-header i {
-    color: #1976d2;
-    font-size: 1.2em;
-}
-
-.search-header h3 {
-    margin: 0;
-    color: #333;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-.search-content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #1976d2;
-    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
-}
-
-.search-input:disabled {
-    background-color: #f5f5f5;
-    color: #999;
-}
-
-.search-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.btn-primary {
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #1976d2, #1565c0);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    flex: 1;
-    min-width: 80px;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #1565c0, #0d47a1);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-}
-
-.btn-primary:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.btn-secondary {
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    color: #666;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    flex: 1;
-    min-width: 80px;
-}
-
-.btn-secondary:hover {
-    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
-    transform: translateY(-1px);
-}
-</style>

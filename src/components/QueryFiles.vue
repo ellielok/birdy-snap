@@ -1,42 +1,42 @@
 <template>
-    <div class="query-files-page">
-        <div class="search-container">
+    <div class="min-h-screen bg-[url('/images/Background.png')] bg-center bg-cover bg-no-repeat bg-fixed py-12">
+        <div class="max-w-[1000px] mx-auto mb-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5 px-5">
             <!-- Text Search Section -->
-            <div class="search-section">
-                <div class="search-header">
-                    <i class="fas fa-search"></i>
-                    <h3>Text Search</h3>
+            <div class="bg-white/95 rounded-xl p-5 shadow-[0_4px_20px_rgba(30,80,200,0.1)] border border-[rgba(25,118,210,0.1)] transition-all duration-300 hover:shadow-[0_6px_25px_rgba(30,80,200,0.15)] hover:-translate-y-0.5">
+                <div class="flex items-center gap-2.5 mb-[15px] pb-2.5 border-b-2 border-[#f0f4ff]">
+                    <i class="fas fa-search text-[#1976d2] text-[1.2em]"></i>
+                    <h3 class="m-0 text-[#333] text-[1.1em] font-semibold">Text Search</h3>
                 </div>
-                <div class="search-content">
+                <div class="flex flex-col gap-3">
                     <input
                         v-model="keyword"
                         @keyup.enter="fetchFiles"
                         placeholder="(e.g. crow or crow:2,pigeon:1)"
-                        class="search-input"
+                        class="w-full py-3 px-4 rounded-lg border border-[#ddd] text-base transition-all duration-200 box-border focus:outline-none focus:border-[#1976d2] focus:shadow-[0_0_0_3px_rgba(25,118,210,0.1)] disabled:bg-[#f5f5f5] disabled:text-[#999]"
                     />
-                    <div class="search-buttons">
-                        <button @click="fetchFiles" class="btn-primary">Search</button>
-                        <button @click="resetSearch" v-if="keyword" class="btn-secondary">Reset</button>
+                    <div class="flex gap-2 flex-wrap">
+                        <button @click="fetchFiles" class="py-2.5 px-5 bg-gradient-to-br from-[#1976d2] to-[#1565c0] text-white border-none rounded-lg cursor-pointer text-[0.95em] font-medium transition-all duration-200 flex-1 min-w-[80px] hover:bg-gradient-to-br hover:from-[#1565c0] hover:to-[#0d47a1] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(25,118,210,0.3)]">Search</button>
+                        <button @click="resetSearch" v-if="keyword" class="py-2.5 px-5 bg-gradient-to-br from-[#f5f5f5] to-[#e0e0e0] text-[#666] border-none rounded-lg cursor-pointer text-[0.95em] font-medium transition-all duration-200 flex-1 min-w-[80px] hover:bg-gradient-to-br hover:from-[#e0e0e0] hover:to-[#d0d0d0] hover:-translate-y-px">Reset</button>
                     </div>
                 </div>
             </div>
 
             <!-- Image Upload Search Section -->
-            <div class="search-section">
-                <div class="search-header">
-                    <i class="fas fa-image"></i>
-                    <h3>Image Search</h3>
+            <div class="bg-white/95 rounded-xl p-5 shadow-[0_4px_20px_rgba(30,80,200,0.1)] border border-[rgba(25,118,210,0.1)] transition-all duration-300 hover:shadow-[0_6px_25px_rgba(30,80,200,0.15)] hover:-translate-y-0.5">
+                <div class="flex items-center gap-2.5 mb-[15px] pb-2.5 border-b-2 border-[#f0f4ff]">
+                    <i class="fas fa-image text-[#1976d2] text-[1.2em]"></i>
+                    <h3 class="m-0 text-[#333] text-[1.1em] font-semibold">Image Search</h3>
                 </div>
-                <div class="search-content">
-                    <input 
+                <div class="flex flex-col gap-3">
+                    <input
                         type="file"
                         accept="image/*"
                         @change="onSearchImage"
                         style="display: none;"
                         ref="imageInput"
                     />
-                    <button @click="triggerImageInput" class="btn-upload">
-                        <i class="fas fa-upload"></i>
+                    <button @click="triggerImageInput" class="py-3 px-5 bg-gradient-to-br from-[#4caf50] to-[#45a049] text-white border-none rounded-lg cursor-pointer text-[0.95em] font-medium transition-all duration-200 flex items-center justify-center gap-2 w-full hover:bg-gradient-to-br hover:from-[#45a049] hover:to-[#3d8b40] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(76,175,80,0.3)]">
+                        <i class="fas fa-upload text-[1em]"></i>
                         Upload & Search
                     </button>
                 </div>
@@ -45,105 +45,85 @@
             <!-- Thumbnail URL Search Section (removed) -->
             <!--
             <div class="search-section">
-                <div class="search-header">
-                    <i class="fas fa-link"></i>
-                    <h3>Thumbnail Search</h3>
-                </div>
-                <div class="search-content">
-                    <input
-                        v-model="thumbnailUrl"
-                        placeholder="Enter thumbnail URL"
-                        class="search-input"
-                        :disabled="loadingFullImg"
-                    />
-                    <div class="search-buttons">
-                        <button
-                            @click="showFullImageByUrl"
-                            class="btn-primary"
-                            :disabled="!thumbnailUrl || loadingFullImg"
-                        >
-                            {{ loadingFullImg ? "Loading..." : "Search" }}
-                        </button>
-                    </div>
-                </div>
-                <div v-if="findFullImgError" class="error-msg">{{ findFullImgError }}</div>
+                ...
             </div>
             -->
         </div>
 
-        <div v-if="mySelectedFiles.length > 0" class="bulk-actions-bar">
-            <div class="bulk-actions-content">
-                <div class="selection-info">
-                    <i class="fas fa-check-circle"></i>
-                    <span class="selection-count">{{ mySelectedFiles.length }} file{{ mySelectedFiles.length !== 1 ? 's' : '' }} selected</span>
+        <div v-if="mySelectedFiles.length > 0" class="max-w-[1000px] mx-auto mb-6 px-5 sticky top-5 z-[100]">
+            <div class="bg-gradient-to-br from-white to-[#f8f9fa] border border-[rgba(25,118,210,0.2)] rounded-xl py-4 px-5 shadow-[0_4px_20px_rgba(0,0,0,0.1),0_2px_8px_rgba(25,118,210,0.15)] flex items-center justify-between gap-5 flex-wrap backdrop-blur-[10px] animate-slideDown max-md:flex-col max-md:items-stretch max-md:gap-[15px]">
+                <div class="flex items-center gap-2.5 text-[#1976d2] font-semibold">
+                    <i class="fas fa-check-circle text-[1.2em] text-[#4caf50]"></i>
+                    <span class="text-base text-[#333]">{{ mySelectedFiles.length }} file{{ mySelectedFiles.length !== 1 ? 's' : '' }} selected</span>
                 </div>
-                <div class="bulk-actions">
-                    <button @click="deselectAll" class="bulk-btn bulk-btn-secondary">
-                        <i class="fas fa-times-circle"></i>
+                <div class="flex gap-3 flex-wrap items-center max-md:justify-center">
+                    <button @click="deselectAll" class="bulk-btn py-2.5 px-4 border-none rounded-lg text-[0.9em] font-medium cursor-pointer transition-all duration-200 flex items-center gap-1.5 min-w-[120px] justify-center relative overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e0e0e0] text-[#555] border border-[#ddd] hover:bg-gradient-to-br hover:from-[#e8e8e8] hover:to-[#d0d0d0] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(0,0,0,0.2)] max-md:flex-1 max-md:min-w-0">
+                        <i class="fas fa-times-circle text-[0.9em]"></i>
                         Deselect All
                     </button>
-                    <button @click="confirmBulkDelete" class="bulk-btn bulk-btn-danger">
-                        <i class="fas fa-trash-alt"></i>
+                    <button @click="confirmBulkDelete" class="bulk-btn py-2.5 px-4 border-none rounded-lg text-[0.9em] font-medium cursor-pointer transition-all duration-200 flex items-center gap-1.5 min-w-[120px] justify-center relative overflow-hidden bg-gradient-to-br from-[#f44336] to-[#d32f2f] text-white border border-[#d32f2f] hover:bg-gradient-to-br hover:from-[#d32f2f] hover:to-[#b71c1c] hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(244,67,54,0.4)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(0,0,0,0.2)] max-md:flex-1 max-md:min-w-0">
+                        <i class="fas fa-trash-alt text-[0.9em]"></i>
                         Delete Selected
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="file-list">
-            <div v-if="loading && files.length === 0" class="status-msg">Loading...</div>
-            <div v-else-if="error" class="status-msg error">{{ error }}</div>
-            <div v-else-if="files.length === 0 && !loading" class="status-msg">No files found.</div>
+        <div class="max-w-[1000px] mx-auto">
+            <div v-if="loading && files.length === 0" class="text-center text-[#666] my-12 text-[1.1em] font-medium">Loading...</div>
+            <div v-else-if="error" class="text-center text-[#d32f2f] bg-[rgba(211,47,47,0.1)] p-4 rounded-xl border border-[rgba(211,47,47,0.2)] my-8 mx-auto max-w-[500px]">{{ error }}</div>
+            <div v-else-if="files.length === 0 && !loading" class="text-center text-[#666] my-12 text-[1.1em] font-medium">No files found.</div>
             <div v-else>
-                <div class="files-grid">
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6 px-5 max-md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] max-md:gap-4">
                     <!-- Show files with thumbnail -->
-                    <div 
-                        v-for="file in files" 
-                        :key="file.url" 
-                        class="file-card"
+                    <div
+                        v-for="file in files"
+                        :key="file.url"
+                        class="file-card bg-gradient-to-br from-white to-[#f8f9fa] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08),0_4px_16px_rgba(25,118,210,0.05)] p-5 flex flex-col relative transition-all duration-300 border border-white/80 backdrop-blur-[10px] overflow-hidden min-h-[340px] hover:shadow-[0_20px_40px_rgba(0,0,0,0.15),0_8px_24px_rgba(25,118,210,0.1)] max-md:min-h-[320px] max-md:p-4"
                         :class="{ 'selected': !!mySelectedMap[file.url] }"
                     >
                         <!-- Media Container -->
-                        <div class="media-container">
+                        <div class="w-full h-[160px] bg-gradient-to-br from-[#f5f5f5] to-[#e0e0e0] rounded-xl mb-4 overflow-hidden relative flex items-center justify-center shadow-[inset_0_2px_8px_rgba(0,0,0,0.1)] max-md:h-[140px]">
                             <img
                                 v-if="file.url.match(/\.(jpg|jpeg|png|gif)(\?.*)?$/i)"
                                 :src="file.url"
                                 @click="showFullImage(file)"
-                                class="thumbnail"
+                                class="max-w-full max-h-full rounded-lg object-cover cursor-pointer"
                                 alt="thumbnail"
                             />
                             <video
                                 v-else-if="file.url.match(/\.(mp4|mov|avi|webm)(\?.*)?$/i)"
                                 :src="file.url"
                                 controls
+                                class="max-w-full max-h-full rounded-lg object-cover cursor-pointer"
                             />
                         </div>
 
                         <!-- File Info Section -->
-                        <div class="file-info">
-                            <div class="file-name-container">
-                                <div class="file-name">{{ file.file_name || file.url }}</div>
-                                <button 
-                                    @click="copyToClipboard(file.url)" 
-                                    class="copy-btn"
+                        <div class="flex-1 flex flex-col gap-3">
+                            <div class="flex items-center justify-center gap-2 mb-2 p-2 bg-black/[0.02] rounded-lg border border-black/[0.05]">
+                                <div class="font-medium text-[0.8em] text-[#555] leading-[1.2] break-all line-clamp-2 flex-1 text-left opacity-80">{{ file.file_name || file.url }}</div>
+                                <button
+                                    @click="copyToClipboard(file.url)"
+                                    class="bg-gradient-to-br from-[#e3f2fd] to-[#bbdefb] text-[#1976d2] border-none rounded-md py-1.5 px-2 cursor-pointer transition-all duration-200 flex items-center justify-center min-w-[32px] h-8 shrink-0 hover:bg-gradient-to-br hover:from-[#bbdefb] hover:to-[#90caf9] hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(25,118,210,0.2)] active:translate-y-0 active:shadow-[0_1px_4px_rgba(25,118,210,0.3)]"
                                     title="Copy URL"
                                 >
-                                    <i class="fas fa-copy"></i>
+                                    <i class="fas fa-copy text-[0.9em]"></i>
                                 </button>
                             </div>
-                            
-                            <div class="file-meta">
-                                <div class="tags" v-if="file.tags && file.tags.length > 0">
-                                    <span v-for="tag in file.tags" :key="tag" class="tag">{{ tag }}</span>
+
+                            <div class="w-full flex flex-col gap-2 items-center">
+                                <div class="flex flex-wrap gap-1.5 justify-center mb-2" v-if="file.tags && file.tags.length > 0">
+                                    <span v-for="tag in file.tags" :key="tag" class="bg-gradient-to-br from-[#e3f2fd] to-[#bbdefb] text-[#1565c0] text-[0.8em] font-medium rounded-xl py-1 px-2.5 border border-[rgba(25,118,210,0.1)] transition-all duration-200 lowercase hover:bg-gradient-to-br hover:from-[#bbdefb] hover:to-[#90caf9] hover:-translate-y-px">{{ tag }}</span>
                                 </div>
-                                
-                                <div class="upload-time" v-if="file.uploaded_at">
+
+                                <div class="text-[0.8em] text-[#666] font-medium mb-3 text-center" v-if="file.uploaded_at">
                                     {{ formatTime(file.uploaded_at) }}
                                 </div>
-                                
-                                <div class="action-buttons">
+
+                                <div class="flex gap-2 justify-center mb-3">
                                     <button
-                                        class="file-action-btn delete-btn"
+                                        class="py-2 px-3.5 border-none rounded-lg text-[0.85em] font-medium cursor-pointer transition-all duration-200 flex items-center justify-center gap-1 min-w-[70px] bg-gradient-to-br from-[#ffebee] to-[#ffcdd2] text-[#d32f2f] border border-[rgba(211,47,47,0.1)] hover:bg-gradient-to-br hover:from-[#ffcdd2] hover:to-[#ef9a9a] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(211,47,47,0.2)]"
                                         @click="confirmDelete(file)"
                                         title="Delete file"
                                     >
@@ -151,7 +131,7 @@
                                         Delete
                                     </button>
                                     <button
-                                        class="file-action-btn tags-btn"
+                                        class="py-2 px-3.5 border-none rounded-lg text-[0.85em] font-medium cursor-pointer transition-all duration-200 flex items-center justify-center gap-1 min-w-[70px] bg-gradient-to-br from-[#f3e5f5] to-[#e1bee7] text-[#7b1fa2] border border-[rgba(123,31,162,0.1)] hover:bg-gradient-to-br hover:from-[#e1bee7] hover:to-[#ce93d8] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(123,31,162,0.2)]"
                                         @click="openTagsDialog(file)"
                                         title="Edit tags"
                                     >
@@ -159,14 +139,17 @@
                                         Tags
                                     </button>
                                 </div>
-                                
-                                <div class="checkbox-container">
-                                    <button 
-                                        class="select-button" 
-                                        :class="{ 'selected': !!mySelectedMap[file.url] }"
+
+                                <div class="flex justify-center w-full mt-auto">
+                                    <button
+                                        class="flex items-center justify-center cursor-pointer text-[0.9em] text-[#555] py-2.5 px-[18px] rounded-[20px] transition-all duration-300 bg-white/90 border-2 border-[#e0e0e0] backdrop-blur-[5px] gap-2 font-medium min-w-[100px] hover:border-[#1976d2] hover:shadow-[0_6px_16px_rgba(25,118,210,0.15)]"
+                                        :class="{
+                                            'bg-gradient-to-br from-[#e3f2fd] to-[#bbdefb] !text-[#1976d2] font-semibold !border-[#1976d2] shadow-[0_4px_12px_rgba(25,118,210,0.3)]': !!mySelectedMap[file.url],
+                                            'hover:bg-[rgba(25,118,210,0.05)] hover:text-[#1976d2]': !mySelectedMap[file.url]
+                                        }"
                                         @click="toggleSelect(file)"
                                     >
-                                        <i class="fas" :class="mySelectedMap[file.url] ? 'fa-check-circle' : 'fa-circle'"></i>
+                                        <i class="fas text-[1.1em] transition-all duration-200" :class="mySelectedMap[file.url] ? 'fa-check-circle text-[#1976d2]' : 'fa-circle text-[#bbb]'"></i>
                                         {{ mySelectedMap[file.url] ? 'Selected' : 'Select' }}
                                     </button>
                                 </div>
@@ -174,8 +157,8 @@
                         </div>
                     </div>
                 </div>
-                <div v-show = "loading && files.length > 0" class="status-msg">Loading more...</div>
-                <div v-show = "noMore && files.length > 0" class="status-msg">No more files.</div>
+                <div v-show = "loading && files.length > 0" class="text-center text-[#666] my-12 text-[1.1em] font-medium">Loading more...</div>
+                <div v-show = "noMore && files.length > 0" class="text-center text-[#666] my-12 text-[1.1em] font-medium">No more files.</div>
             </div>
         </div>
 
@@ -221,18 +204,18 @@
             <template #footer>
                 <el-button @click="tagsDialogVisible = false">Cancel</el-button>
                 <el-button type="primary" @click="saveTags" :loading="savingTags">Save</el-button>
-            </template>            
+            </template>
         </el-dialog>
     </div>
 </template>
-  
+
 <script setup>
 meta: { requiresAuth: true }
 import { useRoute } from 'vue-router';
 import { ref, onMounted, watch, onUnmounted, computed } from "vue";
 import axios from "axios";
 import { parseJwt } from "../utils/auth";
-  
+
 const files = ref([]); // [{url, uploader, file_name, tags, uploaded_at}]
 const loading = ref(false);
 const error = ref(null);
@@ -247,10 +230,6 @@ const fullImageUrl = ref("");
 
 const user = ref(null);
 const mySelectedMap = ref({});
-
-// const thumbnailUrl = ref("");
-// const loadingFullImg = ref(false);
-// const findFullImgError = ref("");
 
 const imageInput = ref(null);
 
@@ -352,13 +331,13 @@ async function onSearchImage(event) {
         loading.value = false;
     }
 }
-  
+
 function formatTime(time) {
     if (!time) return "";
     const date = new Date(time);
     return isNaN(date.getTime()) ? "" : date.toLocaleString();
 }
-  
+
 async function fetchFiles(isFirstPage = false) {
     if (loading.value) return; // Prevent duplicate loading
     loading.value = true;
@@ -431,7 +410,7 @@ async function fetchFiles(isFirstPage = false) {
         return;
     }
 }
-  
+
 function resetSearch(isResetAll = false) {
     page.value = 1;
     noMore.value = false;
@@ -458,7 +437,7 @@ function isOwnFile(file) {
     );
 }
 
-const mySelectedFiles = computed(() => 
+const mySelectedFiles = computed(() =>
     files.value.filter(file => file && mySelectedMap.value[file.url])
 );
 
@@ -491,8 +470,8 @@ async function deleteFiles(keys) {
     try {
         loading.value = true;
         error.value = null;
-        const res = await axios.post("https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/DeleteFiles", 
-            {urls: keys}, 
+        const res = await axios.post("https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/DeleteFiles",
+            {urls: keys},
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
@@ -539,24 +518,6 @@ async function showFullImage(file) {
     }
 }
 
-// async function showFullImageByUrl() {
-//     if (!thumbnailUrl.value) {
-//         findFullImgError.value = "Please enter a thumbnail URL";
-//         return;
-//     }
-//
-//     loadingFullImg.value = true;
-//     findFullImgError.value = "";
-//     try {
-//         await showFullImage({url: thumbnailUrl.value});
-//     } catch (e) {
-//         findFullImgError.value = "Failed to get full image: " + (e?.response?.data?.message || e.message || "Unknown error");
-//     } finally {
-//         loadingFullImg.value = false;
-//     }
-// }
-
-
 function parseTagCounts(keywordStr){
     // Accept format: crow:2,pigeon:1,duck:3
     const tagCountPairs = keywordStr.split(',').map(s => s.trim()).filter(Boolean);
@@ -599,198 +560,8 @@ async function copyToClipboard(text) {
 }
 
 </script>
-  
- <style scoped>
-.query-files-page {
-    min-height: 100vh;
-    background: url('/images/Background.png') center center/cover no-repeat fixed;
-    padding: 3rem 0;
-}
-.search-container {
-    max-width: 1000px;
-    margin: 0 auto 2rem auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 0 20px;
-}
 
-.search-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(30, 80, 200, 0.1);
-    border: 1px solid rgba(25, 118, 210, 0.1);
-    transition: all 0.3s ease;
-}
-
-.search-section:hover {
-    box-shadow: 0 6px 25px rgba(30, 80, 200, 0.15);
-    transform: translateY(-2px);
-}
-
-.search-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f0f4ff;
-}
-
-.search-header i {
-    color: #1976d2;
-    font-size: 1.2em;
-}
-
-.search-header h3 {
-    margin: 0;
-    color: #333;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-.search-content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #1976d2;
-    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
-}
-
-.search-input:disabled {
-    background-color: #f5f5f5;
-    color: #999;
-}
-
-.search-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.btn-primary {
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #1976d2, #1565c0);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    flex: 1;
-    min-width: 80px;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #1565c0, #0d47a1);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-}
-
-.btn-primary:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.btn-secondary {
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    color: #666;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    flex: 1;
-    min-width: 80px;
-}
-
-.btn-secondary:hover {
-    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
-    transform: translateY(-1px);
-}
-
-.btn-upload {
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #4caf50, #45a049);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-}
-
-.btn-upload:hover {
-    background: linear-gradient(135deg, #45a049, #3d8b40);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-}
-
-.btn-upload i {
-    font-size: 1em;
-}
-
-.error-msg {
-    color: #d32f2f;
-    font-size: 0.9em;
-    text-align: center;
-    padding: 8px;
-    background: rgba(211, 47, 47, 0.1);
-    border-radius: 6px;
-    border: 1px solid rgba(211, 47, 47, 0.2);
-}
-
-.bulk-actions-bar {
-    max-width: 1000px;
-    margin: 0 auto 1.5rem auto;
-    padding: 0 20px;
-    position: sticky;
-    top: 20px;
-    z-index: 100;
-}
-
-.bulk-actions-content {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    border: 1px solid rgba(25, 118, 210, 0.2);
-    border-radius: 12px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 
-                0 2px 8px rgba(25, 118, 210, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    backdrop-filter: blur(10px);
-    animation: slideDown 0.3s ease-out;
-}
-
+<style scoped>
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -801,49 +572,15 @@ async function copyToClipboard(text) {
         transform: translateY(0);
     }
 }
-
-.selection-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #1976d2;
-    font-weight: 600;
+.animate-slideDown {
+    animation: slideDown 0.3s ease-out;
 }
-
-.selection-info i {
-    font-size: 1.2em;
-    color: #4caf50;
+.file-card.selected {
+    background: linear-gradient(145deg, #e3f2fd, #f8f9fa);
+    border: 2px solid #1976d2;
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1),
+                0 12px 32px rgba(25, 118, 210, 0.2);
 }
-
-.selection-count {
-    font-size: 1rem;
-    color: #333;
-}
-
-.bulk-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.bulk-btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9em;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-width: 120px;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
 .bulk-btn::before {
     content: '';
     position: absolute;
@@ -854,393 +591,7 @@ async function copyToClipboard(text) {
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
     transition: left 0.5s;
 }
-
 .bulk-btn:hover::before {
     left: 100%;
 }
-
-.bulk-btn i {
-    font-size: 0.9em;
-}
-
-.bulk-btn-secondary {
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    color: #555;
-    border: 1px solid #ddd;
-}
-
-.bulk-btn-secondary:hover {
-    background: linear-gradient(135deg, #e8e8e8, #d0d0d0);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.bulk-btn-danger {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
-    color: white;
-    border: 1px solid #d32f2f;
-}
-
-.bulk-btn-danger:hover {
-    background: linear-gradient(135deg, #d32f2f, #b71c1c);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
-}
-
-.bulk-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive design for bulk actions */
-@media (max-width: 768px) {
-    .bulk-actions-content {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
-    
-    .bulk-actions {
-        justify-content: center;
-    }
-    
-    .bulk-btn {
-        flex: 1;
-        min-width: auto;
-    }
-}
-.file-list {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-.files-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-    padding: 0 20px;
-}
-
-.file-card {
-    background: linear-gradient(145deg, #ffffff, #f8f9fa);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
-                0 4px 16px rgba(25, 118, 210, 0.05);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-    min-height: 340px;
-}
-
-
-
-.file-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-                0 8px 24px rgba(25, 118, 210, 0.1);
-}
-
-.file-card.selected {
-    background: linear-gradient(145deg, #e3f2fd, #f8f9fa);
-    border: 2px solid #1976d2;
-    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1),
-                0 12px 32px rgba(25, 118, 210, 0.2);
-}
-
-
-
-/* Media Container */
-.media-container {
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    border-radius: 12px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.file-card img, .file-card video {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-/* File Info Section */
-.file-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.file-name-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 8px;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.file-name {
-    font-weight: 500;
-    font-size: 0.8em;
-    color: #555;
-    line-height: 1.2;
-    word-break: break-all;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    flex: 1;
-    text-align: left;
-    opacity: 0.8;
-}
-
-.copy-btn {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    color: #1976d2;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-}
-
-.copy-btn:hover {
-    background: linear-gradient(135deg, #bbdefb, #90caf9);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
-}
-
-.copy-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 4px rgba(25, 118, 210, 0.3);
-}
-
-.copy-btn i {
-    font-size: 0.9em;
-}
-
-.file-meta {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-}
-
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    justify-content: center;
-    margin-bottom: 8px;
-}
-
-.tag {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    color: #1565c0;
-    font-size: 0.8em;
-    font-weight: 500;
-    border-radius: 12px;
-    padding: 4px 10px;
-    border: 1px solid rgba(25, 118, 210, 0.1);
-    transition: all 0.2s ease;
-    text-transform: lowercase;
-}
-
-.tag:hover {
-    background: linear-gradient(135deg, #bbdefb, #90caf9);
-    transform: translateY(-1px);
-}
-
-.upload-time {
-    font-size: 0.8em;
-    color: #666;
-    font-weight: 500;
-    margin-bottom: 12px;
-    text-align: center;
-}
-
-/* Action Buttons */
-.action-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 12px;
-}
-
-.file-action-btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85em;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    min-width: 70px;
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #ffebee, #ffcdd2);
-    color: #d32f2f;
-    border: 1px solid rgba(211, 47, 47, 0.1);
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
-}
-
-.tags-btn {
-    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
-    color: #7b1fa2;
-    border: 1px solid rgba(123, 31, 162, 0.1);
-}
-
-.tags-btn:hover {
-    background: linear-gradient(135deg, #e1bee7, #ce93d8);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(123, 31, 162, 0.2);
-}
-
-/* Select Button Section */
-.checkbox-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: auto;
-}
-
-.select-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: #555;
-    padding: 10px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid #e0e0e0;
-    backdrop-filter: blur(5px);
-    gap: 8px;
-    font-weight: 500;
-    min-width: 100px;
-}
-
-.select-button i {
-    font-size: 1.1em;
-    transition: all 0.2s ease;
-}
-
-.select-button.selected {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    color: #1976d2;
-    font-weight: 600;
-    border-color: #1976d2;
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-}
-
-.select-button.selected i {
-    color: #1976d2;
-}
-
-.select-button:not(.selected) i {
-    color: #bbb;
-}
-
-.select-button:hover {
-    border-color: #1976d2;
-    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.15);
-}
-
-.select-button:not(.selected):hover {
-    background: rgba(25, 118, 210, 0.05);
-    color: #1976d2;
-}
-
-.select-button:not(.selected):hover i {
-    color: #1976d2;
-}
-
-/* Positioning for absolute elements */
-.select-checkbox {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 22px;
-    height: 22px;
-    accent-color: #1976d2;
-    z-index: 3;
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
-}
-
-.file-card:hover .select-checkbox {
-    opacity: 1;
-}
-
-/* Status messages */
-.status-msg {
-    text-align: center;
-    color: #666;
-    margin: 3em 0;
-    font-size: 1.1em;
-    font-weight: 500;
-}
-
-.status-msg.error {
-    color: #d32f2f;
-    background: rgba(211, 47, 47, 0.1);
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(211, 47, 47, 0.2);
-    margin: 2em auto;
-    max-width: 500px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .files-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 16px;
-    }
-    
-    .file-card {
-        min-height: 320px;
-        padding: 16px;
-    }
-    
-    .media-container {
-        height: 140px;
-    }
-}
 </style>
-  

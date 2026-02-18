@@ -1,21 +1,21 @@
 <template>
-    <section class="homepage-bg">
-        <div class="homepage-overlay">
-            <div class="intro-card">
-            <h1 class="homepage-title">Monash Birdy Buddies</h1>
-            <p>
+    <section class="bg-[url('/images/Background.png')] min-h-screen bg-cover bg-center bg-no-repeat w-full relative flex flex-col justify-center">
+        <div class="w-full min-h-[80vh] flex flex-col justify-center items-center">
+            <div class="bg-white/88 shadow-[0_8px_32px_0_rgba(31,38,135,0.18)] rounded-3xl px-10 pt-10 pb-8 max-w-[600px] backdrop-blur-[6px] mt-[60px] max-[600px]:px-[0.6rem] max-[600px]:pt-[1.2rem] max-[600px]:pb-4 max-[600px]:max-w-[96vw]">
+            <h1 class="text-[2.4rem] font-bold mb-4 text-[#212121] text-center tracking-[1px] max-[600px]:text-[1.3rem]">Monash Birdy Buddies</h1>
+            <p class="my-[1.2rem] text-[1.1rem] leading-[1.75] text-[#333] text-left">
                 Monash Birdy Buddies (MBB) is a group of researchers, students, and staff who love everything about birds at Monash University.
                 We explore the amazing world of birds—from tiny wrens to majestic raptors. Over the years, MBB has expanded to multiple Monash campuses worldwide.
             </p>
-            <p>
+            <p class="my-[1.2rem] text-[1.1rem] leading-[1.75] text-[#333] text-left">
                 MBB captures stunning bird photos, unique calls, and fascinating videos for research. To make this data accessible, we are building an AWS-based online system where users can store, organise, and retrieve media files with auto-generated and manual tags.
             </p>
-            <p>
+            <p class="my-[1.2rem] text-[1.1rem] leading-[1.75] text-[#333] text-left">
                 This ensures that valuable observations are safe, organised, and easy to share, supporting robust research and bird conservation efforts.
             </p>
             </div>
-            <div class="homepage-btn">
-                <button @click="goToQuery" class="start-btn">
+            <div class="flex justify-center items-end h-[120px] max-[600px]:h-[80px]">
+                <button @click="goToQuery" class="bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white border-none py-4 px-8 text-[1.2rem] font-semibold rounded-[50px] cursor-pointer transition-all duration-300 shadow-[0_4px_15px_0_rgba(102,126,234,0.4)] tracking-[0.5px] uppercase hover:-translate-y-0.5 hover:shadow-[0_6px_20px_0_rgba(102,126,234,0.6)] active:translate-y-0">
                     Start Exploring
                 </button>
             </div>
@@ -30,110 +30,14 @@ export default {
     name: 'Homepage',
     setup() {
         const router = useRouter()
-        
+
         const goToQuery = () => {
             router.push({ path: "/query" })
         }
-        
+
         return {
             goToQuery
         }
     }
 }
 </script>
-  
-<style scoped>
-.homepage-bg {
-    background-image: url('/images/Background.png');
-    min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-  
-.homepage-overlay {
-    width: 100%;
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-  
-.intro-card {
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-    border-radius: 24px;
-    padding: 2.5rem 2.5rem 2rem 2.5rem;
-    max-width: 600px;
-    backdrop-filter: blur(6px);
-    margin-top: 60px;
-}
-  
-.homepage-title {
-    font-size: 2.4rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #212121;
-    text-align: center;
-    letter-spacing: 1px;
-}
-  
-.intro-card p {
-    margin: 1.2rem 0;
-    font-size: 1.1rem;
-    line-height: 1.75;
-    color: #333;
-    text-align: left;
-}
-  
-.homepage-btn {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 120px;
-}
-  
-@media (max-width: 600px) {
-.intro-card {
-    padding: 1.2rem 0.6rem 1rem 0.6rem;
-    max-width: 96vw;
-}
-.homepage-title {
-    font-size: 1.3rem;
-}
-.homepage-btn {
-    height: 80px;
-}
-}
-
-.start-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px 0 rgba(102, 126, 234, 0.4);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.start-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px 0 rgba(102, 126, 234, 0.6);
-}
-
-.start-btn:active {
-    transform: translateY(0);
-}
-</style>
-  

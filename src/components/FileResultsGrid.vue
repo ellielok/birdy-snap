@@ -1,75 +1,76 @@
 <template>
     <div>
-        <div v-if="mySelectedFiles.length > 0" class="bulk-actions-bar">
-            <div class="bulk-actions-content">
-                <div class="selection-info">
-                    <i class="fas fa-check-circle"></i>
-                    <span class="selection-count">{{ mySelectedFiles.length }} file{{ mySelectedFiles.length !== 1 ? 's' : '' }} selected</span>
+        <div v-if="mySelectedFiles.length > 0" class="max-w-[1000px] mx-auto mb-6 px-5 sticky top-5 z-[100]">
+            <div class="bg-gradient-to-br from-white to-[#f8f9fa] border border-[rgba(25,118,210,0.2)] rounded-xl py-4 px-5 shadow-[0_4px_20px_rgba(0,0,0,0.1),0_2px_8px_rgba(25,118,210,0.15)] flex items-center justify-between gap-5 flex-wrap backdrop-blur-[10px] animate-slideDown max-md:flex-col max-md:items-stretch max-md:gap-[15px]">
+                <div class="flex items-center gap-2.5 text-[#1976d2] font-semibold">
+                    <i class="fas fa-check-circle text-[1.2em] text-[#4caf50]"></i>
+                    <span class="text-base text-[#333]">{{ mySelectedFiles.length }} file{{ mySelectedFiles.length !== 1 ? 's' : '' }} selected</span>
                 </div>
-                <div class="bulk-actions">
-                    <button @click="deselectAll" class="bulk-btn bulk-btn-secondary">
-                        <i class="fas fa-times-circle"></i>
+                <div class="flex gap-3 flex-wrap items-center max-md:justify-center">
+                    <button @click="deselectAll" class="bulk-btn py-2.5 px-4 border-none rounded-lg text-[0.9em] font-medium cursor-pointer transition-all duration-200 flex items-center gap-1.5 min-w-[120px] justify-center relative overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e0e0e0] text-[#555] border border-[#ddd] hover:bg-gradient-to-br hover:from-[#e8e8e8] hover:to-[#d0d0d0] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(0,0,0,0.2)] max-md:flex-1 max-md:min-w-0">
+                        <i class="fas fa-times-circle text-[0.9em]"></i>
                         Deselect All
                     </button>
-                    <button @click="confirmBulkDelete" class="bulk-btn bulk-btn-danger">
-                        <i class="fas fa-trash-alt"></i>
+                    <button @click="confirmBulkDelete" class="bulk-btn py-2.5 px-4 border-none rounded-lg text-[0.9em] font-medium cursor-pointer transition-all duration-200 flex items-center gap-1.5 min-w-[120px] justify-center relative overflow-hidden bg-gradient-to-br from-[#f44336] to-[#d32f2f] text-white border border-[#d32f2f] hover:bg-gradient-to-br hover:from-[#d32f2f] hover:to-[#b71c1c] hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(244,67,54,0.4)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(0,0,0,0.2)] max-md:flex-1 max-md:min-w-0">
+                        <i class="fas fa-trash-alt text-[0.9em]"></i>
                         Delete Selected
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="file-list">
-            <div v-if="loading && files.length === 0" class="status-msg">Loading...</div>
-            <div v-else-if="error" class="status-msg error">{{ error }}</div>
-            <div v-else-if="files.length === 0 && !loading" class="status-msg">{{ emptyMessage }}</div>
+        <div class="max-w-[1000px] mx-auto">
+            <div v-if="loading && files.length === 0" class="text-center text-[#666] my-12 text-[1.1em] font-medium">Loading...</div>
+            <div v-else-if="error" class="text-center text-[#d32f2f] bg-[rgba(211,47,47,0.1)] p-4 rounded-xl border border-[rgba(211,47,47,0.2)] my-8 mx-auto max-w-[500px]">{{ error }}</div>
+            <div v-else-if="files.length === 0 && !loading" class="text-center text-[#666] my-12 text-[1.1em] font-medium">{{ emptyMessage }}</div>
             <div v-else>
-                <div class="files-grid">
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6 px-5 max-md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] max-md:gap-4">
                     <div
                         v-for="file in files"
                         :key="file.url"
-                        class="file-card"
+                        class="file-card bg-gradient-to-br from-white to-[#f8f9fa] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08),0_4px_16px_rgba(25,118,210,0.05)] p-5 flex flex-col relative transition-all duration-300 border border-white/80 backdrop-blur-[10px] overflow-hidden min-h-[340px] hover:shadow-[0_20px_40px_rgba(0,0,0,0.15),0_8px_24px_rgba(25,118,210,0.1)] max-md:min-h-[320px] max-md:p-4"
                         :class="{ 'selected': !!mySelectedMap[file.url] }"
                     >
-                        <div class="media-container">
+                        <div class="w-full h-[160px] bg-gradient-to-br from-[#f5f5f5] to-[#e0e0e0] rounded-xl mb-4 overflow-hidden relative flex items-center justify-center shadow-[inset_0_2px_8px_rgba(0,0,0,0.1)] max-md:h-[140px]">
                             <img
                                 v-if="file.url.match(/\.(jpg|jpeg|png|gif)(\?.*)?$/i)"
                                 :src="file.url"
                                 @click="showFullImage(file)"
-                                class="thumbnail"
+                                class="max-w-full max-h-full rounded-lg object-cover cursor-pointer"
                                 alt="thumbnail"
                             />
                             <video
                                 v-else-if="file.url.match(/\.(mp4|mov|avi|webm)(\?.*)?$/i)"
                                 :src="file.url"
                                 controls
+                                class="max-w-full max-h-full rounded-lg object-cover cursor-pointer"
                             />
                         </div>
 
-                        <div class="file-info">
-                            <div class="file-name-container">
-                                <div class="file-name">{{ file.file_name || file.url }}</div>
+                        <div class="flex-1 flex flex-col gap-3">
+                            <div class="flex items-center justify-center gap-2 mb-2 p-2 bg-black/[0.02] rounded-lg border border-black/[0.05]">
+                                <div class="font-medium text-[0.8em] text-[#555] leading-[1.2] break-all line-clamp-2 flex-1 text-left opacity-80">{{ file.file_name || file.url }}</div>
                                 <button
                                     @click="copyToClipboard(file.url)"
-                                    class="copy-btn"
+                                    class="bg-gradient-to-br from-[#e3f2fd] to-[#bbdefb] text-[#1976d2] border-none rounded-md py-1.5 px-2 cursor-pointer transition-all duration-200 flex items-center justify-center min-w-[32px] h-8 shrink-0 hover:bg-gradient-to-br hover:from-[#bbdefb] hover:to-[#90caf9] hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(25,118,210,0.2)] active:translate-y-0 active:shadow-[0_1px_4px_rgba(25,118,210,0.3)]"
                                     title="Copy URL"
                                 >
-                                    <i class="fas fa-copy"></i>
+                                    <i class="fas fa-copy text-[0.9em]"></i>
                                 </button>
                             </div>
 
-                            <div class="file-meta">
-                                <div class="tags" v-if="file.tags && file.tags.length > 0">
-                                    <span v-for="tag in file.tags" :key="tag" class="tag">{{ tag }}</span>
+                            <div class="w-full flex flex-col gap-2 items-center">
+                                <div class="tags flex flex-wrap gap-1.5 justify-center mb-2" v-if="file.tags && file.tags.length > 0">
+                                    <span v-for="tag in file.tags" :key="tag" class="bg-gradient-to-br from-[#e3f2fd] to-[#bbdefb] text-[#1565c0] text-[0.8em] font-medium rounded-xl py-1 px-2.5 border border-[rgba(25,118,210,0.1)] transition-all duration-200 lowercase hover:bg-gradient-to-br hover:from-[#bbdefb] hover:to-[#90caf9] hover:-translate-y-px">{{ tag }}</span>
                                 </div>
 
-                                <div class="upload-time" v-if="file.uploaded_at">
+                                <div class="text-[0.8em] text-[#666] font-medium mb-3 text-center" v-if="file.uploaded_at">
                                     {{ formatTime(file.uploaded_at) }}
                                 </div>
 
-                                <div class="action-buttons">
+                                <div class="flex gap-2 justify-center mb-3">
                                     <button
-                                        class="file-action-btn delete-btn"
+                                        class="py-2 px-3.5 border-none rounded-lg text-[0.85em] font-medium cursor-pointer transition-all duration-200 flex items-center justify-center gap-1 min-w-[70px] bg-gradient-to-br from-[#ffebee] to-[#ffcdd2] text-[#d32f2f] border border-[rgba(211,47,47,0.1)] hover:bg-gradient-to-br hover:from-[#ffcdd2] hover:to-[#ef9a9a] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(211,47,47,0.2)]"
                                         @click="confirmDelete(file)"
                                         title="Delete file"
                                     >
@@ -77,7 +78,7 @@
                                         Delete
                                     </button>
                                     <button
-                                        class="file-action-btn tags-btn"
+                                        class="py-2 px-3.5 border-none rounded-lg text-[0.85em] font-medium cursor-pointer transition-all duration-200 flex items-center justify-center gap-1 min-w-[70px] bg-gradient-to-br from-[#f3e5f5] to-[#e1bee7] text-[#7b1fa2] border border-[rgba(123,31,162,0.1)] hover:bg-gradient-to-br hover:from-[#e1bee7] hover:to-[#ce93d8] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(123,31,162,0.2)]"
                                         @click="openTagsDialog(file)"
                                         title="Edit tags"
                                     >
@@ -86,13 +87,16 @@
                                     </button>
                                 </div>
 
-                                <div class="checkbox-container">
+                                <div class="flex justify-center w-full mt-auto">
                                     <button
-                                        class="select-button"
-                                        :class="{ 'selected': !!mySelectedMap[file.url] }"
+                                        class="flex items-center justify-center cursor-pointer text-[0.9em] text-[#555] py-2.5 px-[18px] rounded-[20px] transition-all duration-300 bg-white/90 border-2 border-[#e0e0e0] backdrop-blur-[5px] gap-2 font-medium min-w-[100px] hover:border-[#1976d2] hover:shadow-[0_6px_16px_rgba(25,118,210,0.15)]"
+                                        :class="{
+                                            'bg-gradient-to-br from-[#e3f2fd] to-[#bbdefb] !text-[#1976d2] font-semibold !border-[#1976d2] shadow-[0_4px_12px_rgba(25,118,210,0.3)]': !!mySelectedMap[file.url],
+                                            'hover:bg-[rgba(25,118,210,0.05)] hover:text-[#1976d2]': !mySelectedMap[file.url]
+                                        }"
                                         @click="toggleSelect(file)"
                                     >
-                                        <i class="fas" :class="mySelectedMap[file.url] ? 'fa-check-circle' : 'fa-circle'"></i>
+                                        <i class="fas text-[1.1em] transition-all duration-200" :class="mySelectedMap[file.url] ? 'fa-check-circle text-[#1976d2]' : 'fa-circle text-[#bbb]'"></i>
                                         {{ mySelectedMap[file.url] ? 'Selected' : 'Select' }}
                                     </button>
                                 </div>
@@ -100,8 +104,8 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="loading && files.length > 0" class="status-msg">Loading more...</div>
-                <div v-show="noMore && files.length > 0" class="status-msg">No more files.</div>
+                <div v-show="loading && files.length > 0" class="text-center text-[#666] my-12 text-[1.1em] font-medium">Loading more...</div>
+                <div v-show="noMore && files.length > 0" class="text-center text-[#666] my-12 text-[1.1em] font-medium">No more files.</div>
             </div>
         </div>
 
@@ -317,31 +321,6 @@ async function copyToClipboard(text) {
 </script>
 
 <style scoped>
-.bulk-actions-bar {
-    max-width: 1000px;
-    margin: 0 auto 1.5rem auto;
-    padding: 0 20px;
-    position: sticky;
-    top: 20px;
-    z-index: 100;
-}
-
-.bulk-actions-content {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    border: 1px solid rgba(25, 118, 210, 0.2);
-    border-radius: 12px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1),
-                0 2px 8px rgba(25, 118, 210, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    backdrop-filter: blur(10px);
-    animation: slideDown 0.3s ease-out;
-}
-
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -352,49 +331,15 @@ async function copyToClipboard(text) {
         transform: translateY(0);
     }
 }
-
-.selection-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #1976d2;
-    font-weight: 600;
+.animate-slideDown {
+    animation: slideDown 0.3s ease-out;
 }
-
-.selection-info i {
-    font-size: 1.2em;
-    color: #4caf50;
+.file-card.selected {
+    background: linear-gradient(145deg, #e3f2fd, #f8f9fa);
+    border: 2px solid #1976d2;
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1),
+                0 12px 32px rgba(25, 118, 210, 0.2);
 }
-
-.selection-count {
-    font-size: 1rem;
-    color: #333;
-}
-
-.bulk-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.bulk-btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9em;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-width: 120px;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
 .bulk-btn::before {
     content: '';
     position: absolute;
@@ -405,382 +350,7 @@ async function copyToClipboard(text) {
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
     transition: left 0.5s;
 }
-
 .bulk-btn:hover::before {
     left: 100%;
-}
-
-.bulk-btn i {
-    font-size: 0.9em;
-}
-
-.bulk-btn-secondary {
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    color: #555;
-    border: 1px solid #ddd;
-}
-
-.bulk-btn-secondary:hover {
-    background: linear-gradient(135deg, #e8e8e8, #d0d0d0);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.bulk-btn-danger {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
-    color: white;
-    border: 1px solid #d32f2f;
-}
-
-.bulk-btn-danger:hover {
-    background: linear-gradient(135deg, #d32f2f, #b71c1c);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
-}
-
-.bulk-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 768px) {
-    .bulk-actions-content {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
-
-    .bulk-actions {
-        justify-content: center;
-    }
-
-    .bulk-btn {
-        flex: 1;
-        min-width: auto;
-    }
-}
-
-.file-list {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.files-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-    padding: 0 20px;
-}
-
-.file-card {
-    background: linear-gradient(145deg, #ffffff, #f8f9fa);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
-                0 4px 16px rgba(25, 118, 210, 0.05);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-    min-height: 340px;
-}
-
-.file-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-                0 8px 24px rgba(25, 118, 210, 0.1);
-}
-
-.file-card.selected {
-    background: linear-gradient(145deg, #e3f2fd, #f8f9fa);
-    border: 2px solid #1976d2;
-    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1),
-                0 12px 32px rgba(25, 118, 210, 0.2);
-}
-
-.media-container {
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    border-radius: 12px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.file-card img, .file-card video {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-.file-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.file-name-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 8px;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.file-name {
-    font-weight: 500;
-    font-size: 0.8em;
-    color: #555;
-    line-height: 1.2;
-    word-break: break-all;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    flex: 1;
-    text-align: left;
-    opacity: 0.8;
-}
-
-.copy-btn {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    color: #1976d2;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-}
-
-.copy-btn:hover {
-    background: linear-gradient(135deg, #bbdefb, #90caf9);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
-}
-
-.copy-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 4px rgba(25, 118, 210, 0.3);
-}
-
-.copy-btn i {
-    font-size: 0.9em;
-}
-
-.file-meta {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-}
-
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    justify-content: center;
-    margin-bottom: 8px;
-}
-
-.tag {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    color: #1565c0;
-    font-size: 0.8em;
-    font-weight: 500;
-    border-radius: 12px;
-    padding: 4px 10px;
-    border: 1px solid rgba(25, 118, 210, 0.1);
-    transition: all 0.2s ease;
-    text-transform: lowercase;
-}
-
-.tag:hover {
-    background: linear-gradient(135deg, #bbdefb, #90caf9);
-    transform: translateY(-1px);
-}
-
-.upload-time {
-    font-size: 0.8em;
-    color: #666;
-    font-weight: 500;
-    margin-bottom: 12px;
-    text-align: center;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 12px;
-}
-
-.file-action-btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85em;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    min-width: 70px;
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #ffebee, #ffcdd2);
-    color: #d32f2f;
-    border: 1px solid rgba(211, 47, 47, 0.1);
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
-}
-
-.tags-btn {
-    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
-    color: #7b1fa2;
-    border: 1px solid rgba(123, 31, 162, 0.1);
-}
-
-.tags-btn:hover {
-    background: linear-gradient(135deg, #e1bee7, #ce93d8);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(123, 31, 162, 0.2);
-}
-
-.checkbox-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: auto;
-}
-
-.select-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: #555;
-    padding: 10px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid #e0e0e0;
-    backdrop-filter: blur(5px);
-    gap: 8px;
-    font-weight: 500;
-    min-width: 100px;
-}
-
-.select-button i {
-    font-size: 1.1em;
-    transition: all 0.2s ease;
-}
-
-.select-button.selected {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    color: #1976d2;
-    font-weight: 600;
-    border-color: #1976d2;
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-}
-
-.select-button.selected i {
-    color: #1976d2;
-}
-
-.select-button:not(.selected) i {
-    color: #bbb;
-}
-
-.select-button:hover {
-    border-color: #1976d2;
-    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.15);
-}
-
-.select-button:not(.selected):hover {
-    background: rgba(25, 118, 210, 0.05);
-    color: #1976d2;
-}
-
-.select-button:not(.selected):hover i {
-    color: #1976d2;
-}
-
-.select-checkbox {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 22px;
-    height: 22px;
-    accent-color: #1976d2;
-    z-index: 3;
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
-}
-
-.file-card:hover .select-checkbox {
-    opacity: 1;
-}
-
-.status-msg {
-    text-align: center;
-    color: #666;
-    margin: 3em 0;
-    font-size: 1.1em;
-    font-weight: 500;
-}
-
-.status-msg.error {
-    color: #d32f2f;
-    background: rgba(211, 47, 47, 0.1);
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(211, 47, 47, 0.2);
-    margin: 2em auto;
-    max-width: 500px;
-}
-
-@media (max-width: 768px) {
-    .files-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 16px;
-    }
-
-    .file-card {
-        min-height: 320px;
-        padding: 16px;
-    }
-
-    .media-container {
-        height: 140px;
-    }
 }
 </style>
