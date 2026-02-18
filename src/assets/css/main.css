@@ -19,7 +19,7 @@ html {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	color: #cccccc;
+	color: #555555;
 	padding-block: 60px;
 }
 
@@ -57,7 +57,7 @@ ul.icons li .icon:before {
 ul.icons.alt li .icon:before {
 	transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 	font-size: 1rem;
-	box-shadow: inset 0 0 0 2px #eeeeee;
+	box-shadow: inset 0 0 0 2px #999999;
 }
 
 ul.icons li a.icon:hover:before {
