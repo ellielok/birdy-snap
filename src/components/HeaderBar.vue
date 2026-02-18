@@ -5,11 +5,11 @@
             <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-[1.5px] cursor-pointer" @click="goToHomepage">Monash Birdy Buddies</div>
         </div>
         <div class="flex items-center gap-[18px]">
-                <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToTextSearch">
-                    Text Search
-                </button>
                 <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToImageSearch">
                     Reverse Search
+                </button>
+                <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToTextSearch">
+                    Text Search
                 </button>
                 <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToAbout">
                     About
@@ -17,7 +17,7 @@
                 <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogin" v-if="!user">
                     Login
                 </button>
-                <template v-else>
+                <!-- <template v-else>
                     <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="profile">
                         Subscribe
                     </button>
@@ -27,7 +27,7 @@
                     <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogout">
                         Logout
                     </button>
-                </template>
+                </template> -->
         </div>
     </header>
 </template>
@@ -70,11 +70,11 @@ function goToAbout() {
 }
 
 function goToTextSearch() {
-    router.push('/');
+    router.push('/text-search');
 }
 
 function goToImageSearch() {
-    router.push('/image-search');
+    router.push('/');
 }
 
 function updateUserFromToken() {

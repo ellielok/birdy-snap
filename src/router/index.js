@@ -8,12 +8,12 @@ import SubscribeTags from '../components/SubscribeTags.vue'
 import { exchangeCodeForToken, isAuthenticated, makeCognitoLoginUrl } from '../utils/auth'
 
 const routes = [
-  { path: '/', component: TextSearch },
-  { path: '/image-search', component: ImageSearch },
+  { path: '/', component: ImageSearch },
+  { path: '/text-search', component: TextSearch },
   { path: '/about', component: Homepage },
   { path: '/admin', component: Admin, meta: { requiresAuth: true } },
   { path: '/upload', component: UploadFile, meta: { requiresAuth: true } },
-  { path: '/query', redirect: '/' },
+  { path: '/query', redirect: '/text-search' },
   { path: '/subscribe', component: SubscribeTags, meta: { requiresAuth: true } },
 ]
 
