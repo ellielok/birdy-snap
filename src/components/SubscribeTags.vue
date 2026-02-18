@@ -1,9 +1,9 @@
 <template>
-  <div class="subscribe-tags-bg">
-    <div class="subscribe-tags-container">
+  <div class="min-h-screen w-screen bg-[url('/images/Background.png')] bg-center bg-cover bg-no-repeat bg-fixed flex items-center justify-center">
+    <div class="py-10 px-[2.2rem] max-w-[540px] min-w-[380px] rounded-2xl bg-[#f6faff] shadow-[0_4px_28px_rgba(40,101,201,0.13)] text-center">
       <h3>Subscribe to Bird Tags</h3>
-      <div class="chips-input-row">
-        <div class="chips-list">
+      <div class="mt-6 mb-[1.1em] flex flex-col items-center">
+        <div class="flex flex-wrap items-center gap-2 min-h-[44px] bg-white border border-[#ccc] rounded-lg py-[5px] px-2 w-full">
           <span
             v-for="(tag, idx) in tagsToAdd"
             :key="tag"
@@ -11,7 +11,7 @@
             :style="getChipStyle(tag)"
           >
             {{ tag }}
-            <button @click="removeTagToAdd(idx)" class="chip-close" aria-label="Remove tag">×</button>
+            <button @click="removeTagToAdd(idx)" class="bg-transparent border-none text-[#1976d2] ml-[7px] cursor-pointer text-[1.18em] outline-none leading-none transition-colors duration-200 hover:text-[#e53935]" aria-label="Remove tag">×</button>
           </span>
           <input
             v-model="inputTag"
@@ -20,21 +20,21 @@
             @keydown.space.prevent="handleInput"
             @blur="handleInput"
             placeholder="Type tag and press Enter, Tab or Space"
-            class="chip-input"
+            class="flex-1 border-none outline-none min-w-[110px] text-base py-1.5 px-[5px] bg-transparent"
           />
         </div>
       </div>
       <button
-        class="subscribe-btn"
+        class="py-2.5 px-10 bg-[#1976d2] text-white border-none rounded-lg text-[1.07em] mt-[1.2em] cursor-pointer transition-colors duration-200 disabled:bg-[#ccc] disabled:cursor-not-allowed"
         @click="subscribeTags"
         :disabled="tagsToAdd.length === 0 || loading"
       >
         {{ loading ? 'Subscribing...' : 'Subscribe' }}
       </button>
 
-      <div class="subscribed-row">
-        <div class="sub-title">Subscribed Tags:</div>
-        <div class="chips-list">
+      <div class="mt-[2.2em] mb-2 text-left">
+        <div class="text-[1.07em] font-semibold mb-[7px] text-[#143b5f]">Subscribed Tags:</div>
+        <div class="flex flex-wrap items-center gap-2 min-h-[44px] bg-white border border-[#ccc] rounded-lg py-[5px] px-2 w-full">
           <span
             v-for="(tagObj, idx) in subscribedTags"
             :key="tagObj.arn + tagObj.tag"
@@ -44,12 +44,12 @@
             :title="'Search images tagged ' + tagObj.tag"
           >
             {{ tagObj.tag }}
-            <button @click.stop="removeSubscribedTag(tagObj, idx)" class="chip-close" aria-label="Unsubscribe tag">×</button>
+            <button @click.stop="removeSubscribedTag(tagObj, idx)" class="bg-transparent border-none text-[#1976d2] ml-[7px] cursor-pointer text-[1.18em] outline-none leading-none transition-colors duration-200 hover:text-[#e53935]" aria-label="Unsubscribe tag">×</button>
           </span>
         </div>
       </div>
-      <p v-if="successMsg" class="success">{{ successMsg }}</p>
-      <p v-if="errorMsg" class="error">{{ errorMsg }}</p>
+      <p v-if="successMsg" class="text-[#12bb5a] mt-4">{{ successMsg }}</p>
+      <p v-if="errorMsg" class="text-[#e53935] mt-4">{{ errorMsg }}</p>
     </div>
   </div>
 </template>
@@ -68,7 +68,7 @@ const successMsg = ref("");
 const errorMsg = ref("");
 const router = useRouter();
 
-const SNS_API = "https://g8vwukx8vk.execute-api.ap-southeast-2.amazonaws.com/subscribe"
+const SNS_API = "https://92o9sezu00.execute-api.ap-southeast-2.amazonaws.com/subscribe"
 
 // Assign color for a tag (hash to color, keep stable for the same tag)
 function getChipStyle(tag) {
@@ -154,7 +154,7 @@ async function subscribeTags() {
       loading.value = false;
       return;
     }
-    
+
     for (const tag of tagsToAdd.value) {
       await axios.post(SNS_API, {
         protocol: "email",
@@ -174,7 +174,7 @@ async function subscribeTags() {
   } finally {
     loading.value = false;
   }
-  
+
 }
 
 async function removeSubscribedTag(tagObj, idx) {
@@ -203,41 +203,6 @@ onMounted(fetchSubscribedTags);
 </script>
 
 <style scoped>
-.subscribe-tags-bg {
-  min-height: 100vh;
-  width: 100vw;
-  background: url('/images/Background.png') center center/cover no-repeat fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.subscribe-tags-container {
-  padding: 2.5rem 2.2rem;
-  max-width: 540px;
-  min-width: 380px;
-  border-radius: 16px;
-  background: #f6faff;
-  box-shadow: 0 4px 28px rgba(40,101,201,.13);
-  text-align: center;
-}
-.chips-input-row {
-  margin: 1.5em 0 1.1em 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.chips-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 5px 8px;
-  width: 100%;
-}
 .chip {
   display: inline-flex;
   align-items: center;
@@ -255,74 +220,12 @@ onMounted(fetchSubscribedTags);
   cursor: pointer;
 }
 .chip.clickable:hover {
-  background: #89ffc7 !important; /* light mint on hover */
+  background: #89ffc7 !important;
   color: #096c3c;
   transform: scale(1.06);
   box-shadow: 0 4px 16px rgba(120, 255, 180, 0.18);
   z-index: 2;
 }
-.chip-new {
-  background: #ffecb2;
-  color: #d28b00;
-}
-
-.chip-close {
-  background: none;
-  border: none;
-  color: #1976d2;
-  margin-left: 7px;
-  cursor: pointer;
-  font-size: 1.18em;
-  outline: none;
-  line-height: 1;
-  transition: color 0.2s;
-}
-.chip-close:hover {
-  color: #e53935;
-}
-.chip-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  min-width: 110px;
-  font-size: 1em;
-  padding: 6px 5px;
-  background: transparent;
-}
-.subscribe-btn {
-  padding: 10px 40px;
-  background: #1976d2;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.07em;
-  margin-top: 1.2em;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.subscribe-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-.subscribed-row {
-  margin: 2.2em 0 0.5em 0;
-  text-align: left;
-}
-.sub-title {
-  font-size: 1.07em;
-  font-weight: 600;
-  margin-bottom: 7px;
-  color: #143b5f;
-}
-.success {
-  color: #12bb5a;
-  margin-top: 1em;
-}
-.error {
-  color: #e53935;
-  margin-top: 1em;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.97);}
   to   { opacity: 1; transform: scale(1);}

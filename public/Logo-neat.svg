@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 62">
+  <!-- 图标部分：镜头 + 小鸟 -->
+  <g transform="translate(-6,-2)">
+    <!-- 外圈 镜头 -->
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#262626" stroke-width="5"></circle>
+
+    <!-- 内圈 镜头层次 -->
+    <circle cx="40" cy="40" r="22" fill="none" stroke="#262626" stroke-width="3"></circle>
+
+    <!-- 小鸟头部 -->
+    <circle cx="40" cy="40" r="14" fill="#262626"></circle>
+
+    <!-- 小鸟眼睛 -->
+    <circle cx="44.5" cy="36.5" r="2.2" fill="#FFFFFF"></circle>
+
+    <!-- 鸟嘴 亮色 -->
+    <polygon points="54,40 66,35 54,30" fill="#FFC857"></polygon>
+
+    <!-- 翅膀 略像快门叶片 -->
+    <path d="M26 52 Q40 46 54 52 Q40 60 26 52 Z" fill="#262626" opacity="0.92"></path>
+  </g>
+</svg>

@@ -2,15 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Homepage from '../views/Homepage.vue'
 import Admin from '../views/Admin.vue'
 import UploadFile from '../components/UploadFile.vue'
-import QueryFiles from '../components/QueryFiles.vue'
+import TextSearch from '../components/TextSearch.vue'
+import ImageSearch from '../components/ImageSearch.vue'
 import SubscribeTags from '../components/SubscribeTags.vue'
 import { exchangeCodeForToken, isAuthenticated, makeCognitoLoginUrl } from '../utils/auth'
 
 const routes = [
-  { path: '/', component: Homepage },
+  { path: '/', component: ImageSearch },
+  { path: '/text-search', component: TextSearch },
+  { path: '/about', component: Homepage },
   { path: '/admin', component: Admin, meta: { requiresAuth: true } },
-  { path: '/upload', component: UploadFile, meta: { requiresAuth: true } }, 
-  { path: '/query', component: QueryFiles, meta: { requiresAuth: true } },
+  { path: '/upload', component: UploadFile, meta: { requiresAuth: true } },
+  { path: '/query', redirect: '/text-search' },
   { path: '/subscribe', component: SubscribeTags, meta: { requiresAuth: true } },
 ]
 
