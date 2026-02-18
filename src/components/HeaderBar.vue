@@ -13,9 +13,6 @@
                 <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToTextSearch">
                     Text Search
                 </button>
-                <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToAbout">
-                    About
-                </button>
                 <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogin" v-if="!user">
                     Login
                 </button>
@@ -46,9 +43,6 @@
             </button>
             <button class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(goToTextSearch)">
                 Text Search
-            </button>
-            <button class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(goToAbout)">
-                About
             </button>
             <button v-if="!user" class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(cognitoLogin)">
                 Login
@@ -98,16 +92,12 @@ function goToHomepage() {
     router.push('/');
 }
 
-function goToAbout() {
-    router.push('/about');
-}
-
 function goToTextSearch() {
     router.push('/text-search');
 }
 
 function goToImageSearch() {
-    router.push('/');
+    router.push('/reverse-search');
 }
 
 function updateUserFromToken() {
