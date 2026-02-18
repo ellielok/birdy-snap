@@ -1,10 +1,10 @@
-# Birdy Shot
+# Birdy Snap
 
 An AWS-powered serverless media storage system with advanced bird tagging capabilities.
 
 ## About
 
-Birdy Shot is a cloud-based platform designed for bird enthusiasts, researchers, and nature photographers. Users can upload bird images and videos, which are automatically tagged with detected bird species using a pretrained deep learning model. Files can then be searched and retrieved based on these tags.
+Birdy Snap is a cloud-based platform designed for bird enthusiasts, researchers, and nature photographers. Users can upload bird images and videos, which are automatically tagged with detected bird species using a pretrained deep learning model. Files can then be searched and retrieved based on these tags.
 
 The project was originally built as a university group project (FIT5225) and is now being rebuilt on AWS with a modernized frontend. **The platform is currently in early access — only core search features are available. More features (authentication, file upload, tag notifications, etc.) will be rolled out as the backend is progressively rebuilt.**
 

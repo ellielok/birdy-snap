@@ -2,7 +2,7 @@
     <header class="w-full h-15 bg-[rgba(40,101,201,0.93)] flex items-center justify-between px-8 max-lg:px-4 relative z-100 box-border">
         <div class="flex items-center">
             <img class="h-12 mr-1" src="/Logo-neat.svg" alt="Logo" style="cursor:pointer" @click="goToHomepage" />
-            <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-wide cursor-pointer" @click="goToHomepage">Birdy Shot</div>
+            <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-wide cursor-pointer" @click="goToHomepage">Birdy Snap</div>
         </div>
 
         <!-- Desktop nav -->

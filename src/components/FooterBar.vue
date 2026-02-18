@@ -29,7 +29,7 @@
       </div>
       <!-- Copyright -->
       <div id="copyright" style="color: #666; padding: 10px; text-align: center;">
-        <ul><li>Birdy Shot 2025</li></ul>
+        <ul><li>Birdy Snap 2025</li></ul>
       </div>
     </footer>
 </template>
