@@ -7,10 +7,6 @@
                 <p>Monash University, Clayton VIC 3168</p>
             </section>
             <section class="mb-5">
-                <h3>Phone</h3>
-                <p><a href="#">(+61) 03-9902-6000</a></p>
-            </section>
-            <section class="mb-5">
                 <h3>Email</h3>
                 <p><a href="#">ellielokit@gmail.com</a></p>
             </section>
@@ -19,17 +15,15 @@
             <section>
                 <h3 class="mb-2.5">Social</h3>
                 <ul class="icons alt flex gap-3 justify-end p-0">
-                    <li class="!list-none"><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li class="!list-none"><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-                    <li class="!list-none"><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li class="!list-none"><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+                    <li class="!list-none"><a href="https://www.linkedin.com/in/ellielok" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li class="!list-none"><a href="https://github.com/ellielok" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
                 </ul>
             </section>
         </div>
       </div>
       <!-- Copyright -->
-      <div id="copyright" style="color: #666; padding: 10px; text-align: center;">
-        <ul><li>Birdy Shot 2025</li></ul>
+      <div id="copyright" style="color: #444; padding: 10px; text-align: center;">
+        <p>Birdy Snap &copy; 2025 | Built with Vue 3 & AWS | For educational and personal use</p>
       </div>
     </footer>
 </template>

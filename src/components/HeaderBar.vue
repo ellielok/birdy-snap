@@ -1,8 +1,8 @@
 <template>
     <header class="w-full h-15 bg-[rgba(40,101,201,0.93)] flex items-center justify-between px-8 max-lg:px-4 relative z-100 box-border">
         <div class="flex items-center">
-            <img class="h-15 mr-1" src="/Logo-neat.svg" alt="Logo" style="cursor:pointer" @click="goToHomepage" />
-            <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-wide cursor-pointer" @click="goToHomepage">Birdy Shot</div>
+            <img class="h-12 mr-1" src="/Logo-neat.svg" alt="Logo" style="cursor:pointer" @click="goToHomepage" />
+            <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-wide cursor-pointer" @click="goToHomepage">Birdy Snap</div>
         </div>
 
         <!-- Desktop nav -->
@@ -13,23 +13,20 @@
                 <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToTextSearch">
                     Text Search
                 </button>
-                <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToAbout">
-                    About
-                </button>
                 <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogin" v-if="!user">
                     Login
                 </button>
-                <!-- <template v-else>
-                    <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="profile">
+                <template v-else>
+                    <!-- <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="profile">
                         Subscribe
                     </button>
                     <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="upload">
                         Upload
-                    </button>
+                    </button> -->
                     <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogout">
                         Logout
                     </button>
-                </template> -->
+                </template>
         </div>
 
         <!-- Hamburger button (sm/md) -->
@@ -47,11 +44,11 @@
             <button class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(goToTextSearch)">
                 Text Search
             </button>
-            <button class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(goToAbout)">
-                About
-            </button>
             <button v-if="!user" class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(cognitoLogin)">
                 Login
+            </button>
+            <button v-else class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(cognitoLogout)">
+                Logout
             </button>
         </div>
     </header>
@@ -95,16 +92,12 @@ function goToHomepage() {
     router.push('/');
 }
 
-function goToAbout() {
-    router.push('/about');
-}
-
 function goToTextSearch() {
     router.push('/text-search');
 }
 
 function goToImageSearch() {
-    router.push('/');
+    router.push('/reverse-search');
 }
 
 function updateUserFromToken() {

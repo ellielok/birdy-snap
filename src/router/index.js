@@ -8,9 +8,9 @@ import SubscribeTags from '../components/SubscribeTags.vue'
 import { exchangeCodeForToken, isAuthenticated, makeCognitoLoginUrl } from '../utils/auth'
 
 const routes = [
-  { path: '/', component: ImageSearch },
+  { path: '/', component: Homepage },
+  { path: '/reverse-search', component: ImageSearch },
   { path: '/text-search', component: TextSearch },
-  { path: '/about', component: Homepage },
   { path: '/admin', component: Admin, meta: { requiresAuth: true } },
   { path: '/upload', component: UploadFile, meta: { requiresAuth: true } },
   { path: '/query', redirect: '/text-search' },
