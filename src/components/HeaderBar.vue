@@ -19,17 +19,17 @@
                 <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogin" v-if="!user">
                     Login
                 </button>
-                <!-- <template v-else>
-                    <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="profile">
+                <template v-else>
+                    <!-- <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="profile">
                         Subscribe
                     </button>
                     <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="upload">
                         Upload
-                    </button>
+                    </button> -->
                     <button class="bg-[#1976d2] text-white border-none rounded-2xl py-1.75 px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="cognitoLogout">
                         Logout
                     </button>
-                </template> -->
+                </template>
         </div>
 
         <!-- Hamburger button (sm/md) -->
@@ -52,6 +52,9 @@
             </button>
             <button v-if="!user" class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(cognitoLogin)">
                 Login
+            </button>
+            <button v-else class="w-full text-left text-white bg-transparent border-none py-3 px-8 text-base cursor-pointer transition-colors duration-200 hover:bg-white/15" @click="navTo(cognitoLogout)">
+                Logout
             </button>
         </div>
     </header>
