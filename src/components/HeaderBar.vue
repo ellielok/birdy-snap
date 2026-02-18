@@ -1,8 +1,8 @@
 <template>
     <header class="w-full h-[60px] bg-[rgba(40,101,201,0.93)] flex items-center justify-between px-8 relative z-[100] box-border">
         <div class="flex items-center">
-            <img class="h-10 mr-5" src="/images/Monash_University_logo.png" alt="Monash Logo" style="cursor:pointer" @click="goToHomepage" />
-            <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-[1.5px] cursor-pointer" @click="goToHomepage">Monash Birdy Buddies</div>
+            <img class="h-15 mr-1" src="/Logo-neat.svg" alt="Logo" style="cursor:pointer" @click="goToHomepage" />
+            <div class="font-[Montserrat,Arial,sans-serif] font-bold text-2xl text-white mr-auto ml-4 tracking-[1.5px] cursor-pointer" @click="goToHomepage">Birdy Shot</div>
         </div>
         <div class="flex items-center gap-[18px]">
                 <button class="bg-[#1976d2] text-white border-none rounded-[18px] py-[7px] px-5 text-base cursor-pointer ml-3 transition-colors duration-200 hover:bg-[#145ea8]" @click="goToImageSearch">

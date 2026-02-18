@@ -12,7 +12,7 @@
             </section>
             <section class="mb-5">
                 <h3>Email</h3>
-                <p><a href="#">MMB_Info@monash.edu</a></p>
+                <p><a href="#">ellielokit@gmail.com</a></p>
             </section>
         </div>
         <div class="flex-1 min-w-[200px] flex flex-col items-end">
@@ -29,7 +29,7 @@
       </div>
       <!-- Copyright -->
       <div id="copyright" style="color: #666; padding: 10px; text-align: center;">
-        <ul><li>&copy; 2025 Monash Birdy Buddies. All rights reserved.</li></ul>
+        <ul><li>Birdy Shot 2025</li></ul>
       </div>
     </footer>
 </template>
